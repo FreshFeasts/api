@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+
 const app = express();
 
 // Packages
@@ -13,6 +14,4 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(PORT, () => {
-  console.log(`Connected and listening on ${PORT}`);
-});
+app.listen(PORT, () => {});
