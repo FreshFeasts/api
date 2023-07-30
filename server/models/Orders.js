@@ -23,16 +23,39 @@ const projectOptions = {
 };
 
 module.exports = {
-  getOrdersByUserId: async (userId) => {
+  getOrdersByUserId: async (userId, count, page) => {
     const query = new ObjectId(userId);
-    const response = await ordersCollection.find(
-      { userId: query },
+    const skipTo = (page - 1) * count;
+    const cursor = await ordersCollection.aggregate([
       {
-        projection: projectOptions,
-      }
-    );
-    const data = await response.toArray();
-
+        $match: {
+          userId: query,
+        },
+      },
+      {
+        $skip: skipTo,
+      },
+      {
+        $limit: count,
+      },
+      {
+        $addFields: {
+          orderId: '$_id',
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          orderId: 1,
+          userId: 1,
+          meals: 1,
+          orderDate: 1,
+          deliveryDate: 1,
+        },
+      },
+    ]);
+    const data = await cursor.toArray();
+    console.log(data);
     return data;
   },
   getOrderById: async (orderId) => {
