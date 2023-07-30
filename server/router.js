@@ -13,4 +13,7 @@ router.get('/info/:userId', controllers.Info.getInfoByUserId);
 router.get('/orders/:orderId', controllers.Orders.getOrderById);
 router.get('/orders/user/:userId', controllers.Orders.getOrdersByUserId);
 
+//CC
+router.get('/cc/user/:userId', controllers.CreditCards.getCardsByUserId);
+
 module.exports = router;
