@@ -1,10 +1,14 @@
 const { Orders } = require('../models');
+const { checkInput } = require('../helperFunctions');
 
 module.exports = {
   getOrdersByUserId: async (req, res) => {
     const { userId } = req.params;
+    let { count, page } = req.query;
+    count = checkInput(count, 5);
+    page = checkInput(page, 1);
     try {
-      const data = await Orders.getOrdersByUserId(userId);
+      const data = await Orders.getOrdersByUserId(userId, count, page);
       res.send(data);
     } catch (err) {
       res.status(400).send({
