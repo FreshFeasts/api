@@ -13,10 +13,24 @@ const getCollection = async () => {
 
 getCollection();
 
+const projectOptions = {
+  ccId: '$_id',
+  _id: 0,
+  ccNum: '$ccNum',
+  ccv: '$ccv',
+  ccDetails: '$ccDetails',
+  ccExp: '$ccExp',
+};
+
 module.exports = {
   getCardsByUserId: async (userId) => {
     const data = await cardCollection
-      .find({ userId: new ObjectId(userId) })
+      .find(
+        { userId: new ObjectId(userId) },
+        {
+          projection: projectOptions,
+        }
+      )
       .toArray();
     return data;
   },
