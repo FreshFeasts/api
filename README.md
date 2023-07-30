@@ -13,8 +13,21 @@ Returns more detailed information on a user
 
 ### Orders ###
 GET `/orders/user/:userId/`
+Returns an array of orders of a specific user
 
-| Queury      | Default     | Description   |
-| :---        |    :----:   |          ---: |
+| Queury Params      | Default     | Description   |
+| :---        |    :----:   |          :--- |
 | Count       | 5           | The amount of orders returned  |
-| Page        | 1        | Selects the page of results to return      |
+| Page        | 1           | Selects the page of results to return      |
+
+GET `orders/:orderId`
+Return an order
+
+### Meals ###
+GET `/meals`
+Returns an array of meals
+
+| Queury Params      | Default     | Description   |
+| :---        |    :----:   |          :--- |
+| Count       | 5           | The amount of orders returned  |
+| Page        | 1           | Selects the page of results to return      |
