@@ -44,8 +44,8 @@ Returns an array of meals.
 ### Register User ###
 
 **POST** `/auth/register`
-
-JSON Request body should follow
+<details>
+<summary>JSON Request body should follow</summary>
 
 ```
 {
@@ -85,3 +85,4 @@ JSON Request body should follow
     }
 }
 ```
+</details>
