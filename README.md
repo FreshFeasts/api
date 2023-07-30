@@ -37,3 +37,51 @@ Returns an array of meals.
 | :---        |    :----:   |          :--- |
 | Count       | 5           | The amount of orders returned  |
 | Page        | 1           | Selects the page of results to return      |
+
+
+## Auth ##
+
+### Register User ###
+
+**POST** `/auth/register`
+
+JSON Request body should follow
+
+```
+{
+    "user": {
+        "email": "String",
+        "password": "String",
+        "firstName": "String",
+        "lastName": "String",
+        "dietChoice": ["String"],
+        "allegens": ["String"],
+        "preferredDay": "Some number 1-5"
+    },
+    "info": {
+    "deliveryAddress": {
+        "address1": "String",
+        "address2": "String",
+        "city": "String",
+        "state": "String",
+        "zip": "String"
+    },
+    "DOB": "MM/DD/YYYY",
+    "phone": "String"
+    },
+     "paymentInfo": {
+        "ccNum": "string",
+        "ccDetails": {
+            "address1": "String",
+            "address2": "String",
+            "city": "String",
+            "state": "String",
+            "zip": "String"
+        },
+        "ccExp": {
+            "month": Number,
+            "year": Number
+        }
+    }
+}
+```
