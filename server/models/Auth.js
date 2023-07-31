@@ -54,10 +54,18 @@ module.exports = {
       userId,
     });
 
+    const token = jwt.sign(
+      { userId: userData._id, email: email },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '1d',
+      }
+    );
+
     const userData = await usersCollection.findOne({ _id: userId });
     const infoData = await Info.getInfoByUserId(userId.toString());
 
-    return { user: userData, info: infoData };
+    return { user: userData, info: infoData, token: token };
   },
 
   loginUser: async (email, password) => {
@@ -71,7 +79,10 @@ module.exports = {
           expiresIn: '1d',
         }
       );
-      return { status: 200, json: { msg: 'user logged in', token: token } };
+      return {
+        status: 200,
+        json: { msg: 'user logged in', userId: userData._id, token: token },
+      };
     } else {
       return { status: 401, json: { msg: 'Invalid credentials' } };
     }
