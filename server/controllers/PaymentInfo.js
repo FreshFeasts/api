@@ -1,10 +1,10 @@
-const { CreditCards } = require('../models');
+const { PaymentInfo } = require('../models');
 
 module.exports = {
   getCardsByUserId: async (req, res) => {
     const { userId } = req.params;
     try {
-      const data = await CreditCards.getCardsByUserId(userId);
+      const data = await PaymentInfo.getCardsByUserId(userId);
       res.send(data);
     } catch (err) {
       res.status(400).send({

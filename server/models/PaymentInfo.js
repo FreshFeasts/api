@@ -1,14 +1,14 @@
 const { ObjectId } = require('mongodb');
 const { connectDb } = require('../db/index');
 
-let cardCollection;
+let ccCollection;
 
 const getCollection = async () => {
-  if (cardCollection) {
+  if (ccCollection) {
     return;
   }
   const db = await connectDb();
-  cardCollection = db.collection('creditCard');
+  ccCollection = db.collection('paymentInfo');
 };
 
 getCollection();
@@ -24,7 +24,7 @@ const projectOptions = {
 
 module.exports = {
   getCardsByUserId: async (userId) => {
-    const data = await cardCollection
+    const data = await ccCollection
       .find(
         { userId: new ObjectId(userId) },
         {
