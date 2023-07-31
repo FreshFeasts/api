@@ -20,6 +20,8 @@ module.exports = {
     const authUserId = req.user.userId;
     const { userId } = req.params;
 
+    console.log(authUserId, userId);
+
     if (authUserId === userId) {
       try {
         const data = await Users.getInitData(userId);

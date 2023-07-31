@@ -55,7 +55,7 @@ module.exports = {
     });
 
     const token = jwt.sign(
-      { userId: userResponse._id, email: user.email },
+      { userId: userId, email: user.email },
       process.env.JWT_SECRET,
       {
         expiresIn: '1d',
@@ -81,7 +81,12 @@ module.exports = {
       );
       return {
         status: 200,
-        json: { msg: 'user logged in', userId: userData._id, token: token },
+        json: {
+          msg: 'user logged in',
+          userId: userData._id,
+          email: email,
+          token: token,
+        },
       };
     } else {
       return { status: 401, json: { msg: 'Invalid credentials' } };
