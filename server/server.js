@@ -12,12 +12,17 @@ const app = express();
 // Server variables
 const PORT = process.env.EX_PORT || 3000;
 
+var corsOptions = {
+  origin: 'http://localhost:8080',
+};
+
 // Create an async function in order to connect to DB before starting server
 const startServer = async () => {
   try {
     const db = await connectDb();
 
     //middleware
+    app.use(cors(corsOptions));
     app.use(morgan('dev'));
     // app.use(compression());
     app.use(express.json());

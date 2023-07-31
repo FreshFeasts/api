@@ -21,6 +21,7 @@ router.get('/meals', controllers.Meals.getMeals);
 
 // Auth
 router.post('/auth/register', controllers.Auth.registerUser);
+router.post('/auth/login', controllers.Auth.loginUser);
 
 router.all('*', async (req, res) => {
   try {

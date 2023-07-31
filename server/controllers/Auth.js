@@ -17,4 +17,11 @@ module.exports = {
       res.status(400).send({ error: err.message });
     }
   },
+
+  loginUser: async (req, res) => {
+    const { email, password } = req.body;
+    const response = await Auth.loginUser(email, password);
+    console.log(response);
+    res.status(response.status).send(response.json);
+  },
 };
