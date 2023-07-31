@@ -10,4 +10,5 @@ module.exports = {
     const data = await userCollection.findOne({ email: email });
     return data ? true : false;
   },
+  // isUser = (userId)
 };

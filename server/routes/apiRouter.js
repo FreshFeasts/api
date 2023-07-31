@@ -1,0 +1,37 @@
+const express = require('express');
+
+const apiRouter = express.Router();
+const controllers = require('../controllers');
+
+// Users
+apiRouter.get('/users/:email', controllers.Users.getUserByEmail);
+
+// Info
+apiRouter.get('/info/:userId', controllers.Info.getInfoByUserId);
+
+// Orders
+apiRouter.get('/orders/:orderId', controllers.Orders.getOrderById);
+apiRouter.get('/orders/user/:userId', controllers.Orders.getOrdersByUserId);
+
+//CC
+apiRouter.get('/cc/user/:userId', controllers.PaymentInfo.getCardsByUserId);
+
+// Meals
+apiRouter.get('/meals', controllers.Meals.getMeals);
+
+// Auth
+apiRouter.post('/auth/register', controllers.Auth.registerUser);
+apiRouter.post('/auth/login', controllers.Auth.loginUser);
+
+apiRouter.all('*', async (req, res) => {
+  try {
+    res.status(404).send({
+      timestamp: Date.now,
+      msg: 'No route matches your request',
+    });
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
+module.exports = apiRouter;

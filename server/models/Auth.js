@@ -64,9 +64,13 @@ module.exports = {
     const userData = await Users.getUserByEmail(email);
     const match = await bcrypt.compare(password, userData.password);
     if (match) {
-      const token = jwt.sign({ email: email }, process.env.JWT_SECRET, {
-        expiresIn: '1d',
-      });
+      const token = jwt.sign(
+        { userId: userData._id, email: email },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: '1d',
+        }
+      );
       return { status: 200, json: { msg: 'user logged in', token: token } };
     } else {
       return { status: 401, json: { msg: 'Invalid credentials' } };

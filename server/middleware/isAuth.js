@@ -9,6 +9,7 @@ const isAuth = async (req, res, next) => {
   const token = authHeader.split(' ')[1];
   let decodedToken;
   try {
+    console.log('Attempting to decode...');
     decodedToken = jwt.verify(token, process.env.JWT_SECRET);
   } catch (err) {
     return res
@@ -18,6 +19,8 @@ const isAuth = async (req, res, next) => {
   if (!decodedToken) {
     res.status(401).json({ msg: 'Unauthorized' });
   } else {
+    req.user = decodedToken;
+
     next();
   }
 };

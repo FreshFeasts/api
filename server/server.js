@@ -8,7 +8,7 @@ const isAuth = require('./middleware/isAuth');
 
 const { connectDb } = require('./db');
 
-const router = require('./router');
+const { apiRouter, authRouter } = require('./routes');
 
 const app = express();
 // Server variables
@@ -30,11 +30,9 @@ const startServer = async () => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
-    app.get('/hello1', (req, res) => {
-      res.send('Hello');
-    });
+    app.use('/', authRouter);
     app.use(isAuth);
-    app.use('/api', router);
+    app.use('/api', apiRouter);
 
     app.get('/hello', (req, res) => {
       res.send('Hello');
