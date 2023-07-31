@@ -68,4 +68,23 @@ module.exports = {
     );
     return data;
   },
+  updateDeliveryDate: async (orderId, orderDate, deliveryDate) => {
+    const query = new ObjectId(orderId);
+    const originalOrder = await ordersCollection.findOne({ _id: query });
+    if (!originalOrder) {
+      return { code: 404, data: 'Order does not exist with that id' };
+    }
+    const newOrderDate = new Date(orderDate);
+    const newDeliveryDate = new Date(deliveryDate);
+
+    try {
+      const response = await ordersCollection.findOneAndUpdate(
+        { _id: query },
+        { $set: { orderDate: newOrderDate, deliveryDate: newDeliveryDate } }
+      );
+      return { code: 204, data: 'Delivery date updated Successfully' };
+    } catch (err) {
+      return { code: 400, data: 'There was an error updating the order' };
+    }
+  },
 };

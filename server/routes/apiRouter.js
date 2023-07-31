@@ -12,6 +12,7 @@ apiRouter.get('/info/:userId', controllers.Info.getInfoByUserId);
 // Orders
 apiRouter.get('/orders/:orderId', controllers.Orders.getOrderById);
 apiRouter.get('/orders/user/:userId', controllers.Orders.getOrdersByUserId);
+apiRouter.put('/orders/update-delivery', controllers.Orders.updateDeliveryDate);
 
 //CC
 apiRouter.get('/cc/user/:userId', controllers.PaymentInfo.getCardsByUserId);
