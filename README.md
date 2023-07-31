@@ -55,8 +55,8 @@ Returns an array of meals.
         "firstName": "String",
         "lastName": "String",
         "dietChoice": ["String"],
-        "allegens": ["String"],
-        "preferredDay": "Some number 1-5"
+        "allergens": ["String"],
+        "preferredDay": "Number"
     },
     "info": {
     "deliveryAddress": {
