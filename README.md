@@ -1,13 +1,15 @@
 # FreshFeast App API
+
 This API allows FreshFeast's App create, read, and update data relating to FreshFeast's customers and meals.
 
 The API is available at `http://localhost:3000/api`
 
-## Auth ##
+## Auth
 
-### Register User ###
+### Register User
 
 **POST** `/auth/register`
+
 <details>
 <summary>JSON Request body should follow</summary>
 
@@ -49,43 +51,55 @@ The API is available at `http://localhost:3000/api`
     }
 }
 ```
+
 </details>
 
-## Endpoints ##
+## Endpoints
 
-### User ###
+### User
+
+**GET** `/initdata/:userId`
+
+Returns user basic information and contact information, used after login.
+
 **GET** `/users/:email`
 
 Returns a user's basic information.
 
-### User Info ###
+### User Contact Info
+
 **GET** `/info/:userId`
 
-Returns more detailed information on a user.
+Returns contact and delivery information on user
 
-### Orders ###
+### Payment Info
+
+**GET** `/cc/user/:userId`
+
+Return user's cards' information
+
+### Orders
+
 **GET** `/orders/user/:userId/`
 
 Returns an array of orders of a specific user.
 
-| Queury Params      | Default     | Description   |
-| :---        |    :----:   |          :--- |
-| Count       | 5           | The amount of orders returned  |
-| Page        | 1           | Selects the page of results to return      |
+| Queury Params | Default | Description                           |
+| :------------ | :-----: | :------------------------------------ |
+| Count         |    5    | The amount of orders returned         |
+| Page          |    1    | Selects the page of results to return |
 
 **GET** `orders/:orderId`
 
 Return an order.
 
-### Meals ###
+### Meals
+
 **GET** `/meals`
 
 Returns an array of meals.
 
-| Queury Params      | Default     | Description   |
-| :---        |    :----:   |          :--- |
-| Count       | 5           | The amount of orders returned  |
-| Page        | 1           | Selects the page of results to return      |
-
-
-
+| Queury Params | Default | Description                           |
+| :------------ | :-----: | :------------------------------------ |
+| Count         |    5    | The amount of orders returned         |
+| Page          |    1    | Selects the page of results to return |
