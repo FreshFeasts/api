@@ -22,4 +22,15 @@ router.get('/meals', controllers.Meals.getMeals);
 // Auth
 router.post('/auth/register', controllers.Auth.registerUser);
 
+router.all('*', async (req, res) => {
+  try {
+    res.status(404).send({
+      timestamp: Date.now,
+      msg: 'No route matches your request',
+    });
+  } catch (err) {
+    throw new Error(err);
+  }
+});
+
 module.exports = router;

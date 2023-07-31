@@ -1,4 +1,3 @@
-const { ObjectId } = require('mongodb');
 const { connectDb } = require('../db/index');
 const { userAlreadyExists } = require('../helperFunctions');
 const { Info } = require('./');
