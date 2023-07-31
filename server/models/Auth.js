@@ -8,10 +8,10 @@ const Users = require('./Users');
 
 let usersCollection;
 let infoCollection;
-let ccCollection;
+let payInfoCollection;
 
 const getCollection = async () => {
-  if (usersCollection && infoCollection && ccCollection) {
+  if (usersCollection && infoCollection && payInfoCollection) {
     return;
   }
 

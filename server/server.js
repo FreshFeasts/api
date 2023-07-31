@@ -2,6 +2,8 @@ require('dotenv').config();
 
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
+const isAuth = require('./middleware/isAuth');
 // const compression = require('compression');
 
 const { connectDb } = require('./db');
@@ -28,7 +30,15 @@ const startServer = async () => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
+    app.get('/hello1', (req, res) => {
+      res.send('Hello');
+    });
+    app.use(isAuth);
     app.use('/api', router);
+
+    app.get('/hello', (req, res) => {
+      res.send('Hello');
+    });
 
     app.listen(PORT, () => {
       console.log(`Connected to ${db.databaseName}, Listening on port ${PORT}`);
