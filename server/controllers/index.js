@@ -1,5 +1,6 @@
 exports.Users = require('./Users');
 exports.Info = require('./Info');
 exports.Orders = require('./Orders');
-exports.CreditCards = require('./CreditCards');
+exports.PaymentInfo = require('./PaymentInfo');
 exports.Meals = require('./Meals');
+exports.Auth = require('./Auth');

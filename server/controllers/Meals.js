@@ -1,4 +1,5 @@
 const { Meals } = require('../models');
+const { checkInput } = require('../helperFunctions');
 
 module.exports = {
   getMeals: async (req, res) => {
@@ -14,12 +15,4 @@ module.exports = {
       });
     }
   },
-};
-
-const checkInput = (parameter, defaultAmount) => {
-  if (!parameter) {
-    return defaultAmount;
-  } else {
-    return Number.parseInt(parameter);
-  }
 };

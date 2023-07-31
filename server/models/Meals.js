@@ -27,7 +27,7 @@ module.exports = {
         $skip: skipTo,
       },
       {
-        $limit: 1,
+        $limit: count,
       },
       {
         $addFields: {
