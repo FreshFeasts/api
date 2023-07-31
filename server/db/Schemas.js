@@ -14,7 +14,7 @@ module.exports = {
     info: Joi.object({
       deliveryAddress: Joi.object({
         address1: Joi.string().required(),
-        address2: Joi.string(),
+        address2: Joi.string().allow(''),
         city: Joi.string().required(),
         state: Joi.string().required(),
         zip: Joi.string().required(),
@@ -28,7 +28,7 @@ module.exports = {
       ccNum: Joi.string().required(),
       ccDetails: Joi.object({
         address1: Joi.string().required(),
-        address2: Joi.string(),
+        address2: Joi.string().allow(''),
         city: Joi.string().required(),
         state: Joi.string().required(),
         zip: Joi.string().required(),
