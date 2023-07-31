@@ -78,7 +78,7 @@ module.exports = {
     const newDeliveryDate = new Date(deliveryDate);
 
     try {
-      const response = await ordersCollection.findOneAndUpdate(
+      await ordersCollection.findOneAndUpdate(
         { _id: query },
         { $set: { orderDate: newOrderDate, deliveryDate: newDeliveryDate } }
       );
