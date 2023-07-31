@@ -7,7 +7,7 @@ The API is available at `http://localhost:3000/api`
 
 ### Register User ###
 
-**POST** `/auth/register`
+**POST** `http://localhost:3000/register`
 <details>
 <summary>JSON Request body should follow</summary>
 
@@ -50,6 +50,21 @@ The API is available at `http://localhost:3000/api`
 }
 ```
 </details>
+
+### Login ###
+
+**POST** `http://localhost:3000/login`
+<details>
+<summary>JSON Request body should follow</summary>
+
+```
+{
+    "email": "String"
+    "password": "String
+}
+```
+</details>
+
 
 ## Endpoints ##
 
