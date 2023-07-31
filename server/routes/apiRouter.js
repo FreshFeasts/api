@@ -19,9 +19,8 @@ apiRouter.get('/cc/user/:userId', controllers.PaymentInfo.getCardsByUserId);
 // Meals
 apiRouter.get('/meals', controllers.Meals.getMeals);
 
-// Auth
-apiRouter.post('/auth/register', controllers.Auth.registerUser);
-apiRouter.post('/auth/login', controllers.Auth.loginUser);
+// Login
+apiRouter.get('/initdata/:userId', controllers.Users.getInitData);
 
 apiRouter.all('*', async (req, res) => {
   try {

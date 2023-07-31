@@ -55,7 +55,7 @@ module.exports = {
     });
 
     const token = jwt.sign(
-      { userId: userData._id, email: email },
+      { userId: userResponse._id, email: user.email },
       process.env.JWT_SECRET,
       {
         expiresIn: '1d',

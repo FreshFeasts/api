@@ -19,6 +19,8 @@ const isAuth = async (req, res, next) => {
   if (!decodedToken) {
     res.status(401).json({ msg: 'Unauthorized' });
   } else {
+    console.log('Successfully decoded token...');
+
     req.user = decodedToken;
 
     next();
