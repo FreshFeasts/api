@@ -50,7 +50,20 @@ module.exports = {
     }
   },
 
-  // orderCart: async(req, res) => {
-  //   const authUserId =
-  // }
+  addCartToOrders: async (req, res) => {
+    const authUserId = req.user.userId;
+    const { userId, currentCart } = req.body;
+
+    console.log(authUserId, userId);
+
+    if (authUserId === userId) {
+      console.log('authorized');
+      try {
+        const result = await Users.addCartToOrders(userId, currentCart);
+        res.status(result.code).send(result.data);
+      } catch (err) {}
+    } else {
+      res.status(403).send({ msg: 'Not authorized to access this content' });
+    }
+  },
 };

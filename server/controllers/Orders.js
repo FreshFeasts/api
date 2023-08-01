@@ -19,8 +19,7 @@ module.exports = {
         });
       }
     } else {
-      res.status(403).send({ msg: 'Not authorized to access this content' });
-    }
+f    }
   },
   getOrderById: async (req, res) => {
     const { orderId } = req.params;

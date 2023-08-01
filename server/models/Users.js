@@ -4,6 +4,7 @@ const { connectDb } = require('../db/index');
 const Info = require('./Info');
 
 let usersCollection;
+let ordersCollection;
 
 const getCollection = async () => {
   if (usersCollection) {
@@ -11,6 +12,7 @@ const getCollection = async () => {
   }
   const db = await connectDb();
   usersCollection = db.collection('users');
+  ordersCollection = db.collection('orders');
 };
 
 getCollection();
@@ -34,20 +36,47 @@ module.exports = {
       throw err;
     }
   },
-  updateCartMeals: async (userId, meals, cart) => {
+  updateCartMeals: async (userId, currentCart) => {
     const query = new ObjectId(userId);
 
     try {
-      // const { currentCart } = await usersCollection.findOne({ _id: query });
-      // const updatedCart = { ...currentCart, meals };
-
       await usersCollection.findOneAndUpdate(
         { _id: query },
-        { $set: { currentCart: cart } }
+        { $set: { currentCart: currentCart } }
       );
 
       return { code: 204, data: `Successfully updated cart` };
     } catch (err) {
+      return { code: 400, data: err };
+    }
+  },
+
+  addCartToOrders: async (userId, currentCart) => {
+    const query = new ObjectId(userId);
+    const initCart = {
+      meals: [],
+      deliveryDate: null,
+    };
+    const convDeliveryDate = new Date(currentCart.deliveryDate);
+    const convOrderDate = new Date(currentCart.orderDate);
+    const completedOrder = {
+      userId: query,
+      meals: currentCart.meals,
+      orderDate: convOrderDate,
+      deliveryDate: convDeliveryDate,
+    };
+
+    try {
+      // add new fresh cart to user
+      await usersCollection.findOneAndUpdate(
+        { _id: query },
+        { $set: { currentCart: initCart } }
+      );
+      // add completed order to orders collection
+      await ordersCollection.insertOne(completedOrder);
+      return { code: 201, data: completedOrder };
+    } catch (err) {
+      console.log(err);
       return { code: 400, data: err };
     }
   },

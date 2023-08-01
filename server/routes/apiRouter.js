@@ -6,6 +6,7 @@ const controllers = require('../controllers');
 // Users
 apiRouter.get('/users/:email', controllers.Users.getUserByEmail);
 apiRouter.put('/users/cart', controllers.Users.updateCartMeals);
+apiRouter.post('/users/cart', controllers.Users.addCartToOrders);
 
 // Info
 apiRouter.get('/info/:userId', controllers.Info.getInfoByUserId);
