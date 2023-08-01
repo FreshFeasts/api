@@ -56,10 +56,7 @@ module.exports = {
 
     const token = jwt.sign(
       { userId: userId, email: user.email },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: '1d',
-      }
+      process.env.JWT_SECRET
     );
 
     const userData = await usersCollection.findOne({ _id: userId });
@@ -74,10 +71,7 @@ module.exports = {
     if (match) {
       const token = jwt.sign(
         { userId: userData._id, email: email },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: '1d',
-        }
+        process.env.JWT_SECRET
       );
       return {
         status: 200,
