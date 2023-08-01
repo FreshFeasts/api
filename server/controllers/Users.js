@@ -7,8 +7,8 @@ module.exports = {
 
     if (authUserEmail === email) {
       try {
-        const data = await Users.getUserByEmail(email);
-        res.send(data);
+        const result = await Users.getUserByEmail(email);
+        res.send(result);
       } catch (err) {
         res.status(400).send(err);
       }
@@ -24,8 +24,8 @@ module.exports = {
 
     if (authUserId === userId) {
       try {
-        const data = await Users.getInitData(userId);
-        res.send(data);
+        const result = await Users.getInitData(userId);
+        res.send(result);
       } catch (err) {
         res.status(400).send(err);
       }
@@ -33,4 +33,24 @@ module.exports = {
       res.status(403).send({ msg: 'Not authorized to access this content' });
     }
   },
+
+  updateCartMeals: async (req, res) => {
+    const authUserId = req.user.userId;
+    const { userId, meals, cart } = req.body;
+
+    console.log(authUserId, userId);
+
+    if (authUserId === userId) {
+      try {
+        const result = await Users.updateCartMeals(userId, meals, cart);
+        res.status(result.code).send(result.data);
+      } catch (err) {}
+    } else {
+      res.status(403).send({ msg: 'Not authorized to access this content' });
+    }
+  },
+
+  // orderCart: async(req, res) => {
+  //   const authUserId =
+  // }
 };

@@ -34,4 +34,21 @@ module.exports = {
       throw err;
     }
   },
+  updateCartMeals: async (userId, meals, cart) => {
+    const query = new ObjectId(userId);
+
+    try {
+      // const { currentCart } = await usersCollection.findOne({ _id: query });
+      // const updatedCart = { ...currentCart, meals };
+
+      await usersCollection.findOneAndUpdate(
+        { _id: query },
+        { $set: { currentCart: cart } }
+      );
+
+      return { code: 204, data: `Successfully updated cart` };
+    } catch (err) {
+      return { code: 400, data: err };
+    }
+  },
 };

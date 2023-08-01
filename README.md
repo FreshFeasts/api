@@ -66,6 +66,36 @@ Returns user basic information and contact information, used after login.
 
 Returns a user's basic information.
 
+**PUT** `/users/cart`
+
+Updates the cart info
+
+```
+// Request Body
+{
+    "userId": String,
+    "currentCart": {
+        "meals": [], // Array of mealId Strings
+        "deliveryDate": Date
+    }
+}
+```
+
+**POST** `users/cart`
+
+Submits a cart to be ordered
+
+```
+{
+    "userId": String,
+    "currentCart": {
+        "meals": [], // Array of mealId Strings
+        "deliveryDate" : Date,  "07/01/2023" new Date()
+        "orderDate": Date
+    }
+}
+```
+
 ### User Contact Info
 
 **GET** `/info/:userId`
@@ -93,6 +123,21 @@ Returns an array of orders of a specific user.
 
 Return an order.
 
+**PUT** `orders/delivery-update`
+
+Updates a delivery date
+
+```
+// Request body
+
+{
+    "orderId": String,
+    "userId": String,
+    "orderDate": Date, // Today's date
+    "deliveryDate": Date
+}
+```
+
 ### Meals
 
 **GET** `/meals`
@@ -103,3 +148,5 @@ Returns an array of meals.
 | :------------ | :-----: | :------------------------------------ |
 | Count         |    5    | The amount of orders returned         |
 | Page          |    1    | Selects the page of results to return |
+
+**PUT** `/meals/array`
