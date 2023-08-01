@@ -148,5 +148,3 @@ Returns an array of meals.
 | :------------ | :-----: | :------------------------------------ |
 | Count         |    5    | The amount of orders returned         |
 | Page          |    1    | Selects the page of results to return |
-
-**PUT** `/meals/array`
