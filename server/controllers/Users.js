@@ -7,11 +7,63 @@ module.exports = {
 
     if (authUserEmail === email) {
       try {
-        const data = await Users.getUserByEmail(email);
-        res.send(data);
+        const result = await Users.getUserByEmail(email);
+        res.send(result);
       } catch (err) {
-        res.send(err);
+        res.status(400).send(err);
       }
+    } else {
+      res.status(403).send({ msg: 'Not authorized to access this content' });
+    }
+  },
+  getInitData: async (req, res) => {
+    const authUserId = req.user.userId;
+    const { userId } = req.params;
+
+    console.log(authUserId, userId);
+
+    if (authUserId === userId) {
+      try {
+        const result = await Users.getInitData(userId);
+        res.send(result);
+      } catch (err) {
+        res.status(400).send(err);
+      }
+    } else {
+      res.status(403).send({ msg: 'Not authorized to access this content' });
+    }
+  },
+
+  updateCart: async (req, res) => {
+    const authUserId = req.user.userId;
+    const { userId, meals, currentCart } = req.body;
+
+    console.log(currentCart);
+
+    if (authUserId === userId) {
+      try {
+        const result = await Users.updateCart(userId, currentCart);
+        res.status(result.code).send(result.data);
+      } catch (err) {
+        res.status(result.code).send(result.data);
+      }
+    } else {
+      res.status(403).send({ msg: 'Not authorized to access this content' });
+    }
+  },
+
+  addCartToOrders: async (req, res) => {
+    const authUserId = req.user.userId;
+    const { userId, currentCart } = req.body;
+
+    console.log(authUserId, userId);
+
+    if (authUserId === userId) {
+      console.log('authorized');
+      try {
+        const result = await Users.addCartToOrders(userId, currentCart);
+        res.status(result.code).send(result.data);
+      } catch (err) {}
     } else {
       res.status(403).send({ msg: 'Not authorized to access this content' });
     }

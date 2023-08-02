@@ -55,11 +55,8 @@ module.exports = {
     });
 
     const token = jwt.sign(
-      { userId: userData._id, email: email },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: '1d',
-      }
+      { userId: userId, email: user.email },
+      process.env.JWT_SECRET
     );
 
     const userData = await usersCollection.findOne({ _id: userId });
@@ -74,14 +71,16 @@ module.exports = {
     if (match) {
       const token = jwt.sign(
         { userId: userData._id, email: email },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: '1d',
-        }
+        process.env.JWT_SECRET
       );
       return {
         status: 200,
-        json: { msg: 'user logged in', userId: userData._id, token: token },
+        json: {
+          msg: 'user logged in',
+          userId: userData._id,
+          email: email,
+          token: token,
+        },
       };
     } else {
       return { status: 401, json: { msg: 'Invalid credentials' } };

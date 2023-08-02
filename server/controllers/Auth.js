@@ -26,26 +26,4 @@ module.exports = {
     console.log(response);
     res.status(response.status).send(response.json);
   },
-
-  // isAuth: async (req, res, next) => {
-  //   const authHeader = req.get('Authorization');
-  //   console.log(authHeader);
-  //   if (!authHeader) {
-  //     return res.status(401).json({ msg: 'Not authenticated' });
-  //   }
-  //   const token = authHeader.split(' ')[1];
-  //   let decodedToken;
-  //   try {
-  //     decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-  //   } catch (err) {
-  //     return res
-  //       .status(500)
-  //       .json({ message: err.message || 'Token could not be decoded' });
-  //   }
-  //   if (!decodedToken) {
-  //     res.status(401).json({ msg: 'Unauthorized' });
-  //   } else {
-  //     next();
-  //   }
-  // },
 };

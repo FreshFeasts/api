@@ -1,6 +1,6 @@
 const { Orders } = require('../models');
 const { checkInput } = require('../helperFunctions');
-
+const { updateDeliverySchema } = require('../db/Schemas');
 module.exports = {
   getOrdersByUserId: async (req, res) => {
     const authUserId = req.user.userId;
@@ -19,8 +19,7 @@ module.exports = {
         });
       }
     } else {
-      res.status(403).send({ msg: 'Not authorized to access this content' });
-    }
+f    }
   },
   getOrderById: async (req, res) => {
     const { orderId } = req.params;
@@ -31,6 +30,23 @@ module.exports = {
       res.status(400).send({
         msg: `There was an error finding an order for orderId: ${orderId}`,
       });
+    }
+  },
+  updateDeliveryDate: async (req, res) => {
+    const { orderId, userId, orderDate, deliveryDate } = req.body;
+    const authUserId = req.user.userId;
+    console.log(orderId, userId, authUserId, orderDate, deliveryDate);
+    if (authUserId === userId) {
+      try {
+        const status = await Orders.updateDeliveryDate(
+          orderId,
+          orderDate,
+          deliveryDate
+        );
+        res.status(status.code).send(status.data);
+      } catch (error) {}
+    } else {
+      res.status(403).send({ msg: 'Not authorized to access this content' });
     }
   },
 };
