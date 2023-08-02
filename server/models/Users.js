@@ -38,11 +38,15 @@ module.exports = {
   },
   updateCartMeals: async (userId, currentCart) => {
     const query = new ObjectId(userId);
-
+    const deliverDateFormated = new Date(currentCart.deliveryDate);
+    const updatedCart = {
+      ...currentCart,
+      deliveryDate: deliverDateFormated,
+    };
     try {
       await usersCollection.findOneAndUpdate(
         { _id: query },
-        { $set: { currentCart: currentCart } }
+        { $set: { currentCart: updatedCart } }
       );
 
       return { code: 204, data: `Successfully updated cart` };

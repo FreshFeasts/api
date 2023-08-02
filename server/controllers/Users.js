@@ -36,15 +36,17 @@ module.exports = {
 
   updateCartMeals: async (req, res) => {
     const authUserId = req.user.userId;
-    const { userId, meals, cart } = req.body;
+    const { userId, meals, currentCart } = req.body;
 
-    console.log(authUserId, userId);
+    console.log(currentCart);
 
     if (authUserId === userId) {
       try {
-        const result = await Users.updateCartMeals(userId, meals, cart);
+        const result = await Users.updateCartMeals(userId, currentCart);
         res.status(result.code).send(result.data);
-      } catch (err) {}
+      } catch (err) {
+        res.status(result.code).send(result.data);
+      }
     } else {
       res.status(403).send({ msg: 'Not authorized to access this content' });
     }
