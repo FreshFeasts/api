@@ -36,7 +36,7 @@ module.exports = {
       throw err;
     }
   },
-  updateCartMeals: async (userId, currentCart) => {
+  updateCart: async (userId, currentCart) => {
     const query = new ObjectId(userId);
     const deliverDateFormated = new Date(currentCart.deliveryDate);
     const updatedCart = {

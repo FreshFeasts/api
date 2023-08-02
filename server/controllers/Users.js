@@ -34,7 +34,7 @@ module.exports = {
     }
   },
 
-  updateCartMeals: async (req, res) => {
+  updateCart: async (req, res) => {
     const authUserId = req.user.userId;
     const { userId, meals, currentCart } = req.body;
 
@@ -42,7 +42,7 @@ module.exports = {
 
     if (authUserId === userId) {
       try {
-        const result = await Users.updateCartMeals(userId, currentCart);
+        const result = await Users.updateCart(userId, currentCart);
         res.status(result.code).send(result.data);
       } catch (err) {
         res.status(result.code).send(result.data);
