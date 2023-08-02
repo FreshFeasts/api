@@ -22,6 +22,7 @@ apiRouter.get('/cc/user/:userId', controllers.PaymentInfo.getCardsByUserId);
 // Meals
 apiRouter.get('/meals', controllers.Meals.getMeals);
 apiRouter.post('/meals/add-review', controllers.Meals.addUserReview);
+apiRouter.post('/meals/add-rating', controllers.Meals.addUserRating);
 
 // Login
 apiRouter.get('/initdata/:userId', controllers.Users.getInitData);

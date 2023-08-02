@@ -31,4 +31,16 @@ module.exports = {
       res.send(503).send({ msg: 'Not authorized to access this content' });
     }
   },
+
+  addUserRating: async (req, res) => {
+    const { mealId, userId, rating } = req.body;
+    const authUserId = req.user.userId;
+
+    if (authUserId === userId) {
+      const { code, data } = await Meals.addUserRating(mealId, userId, rating);
+      res.status(code).send(data);
+    } else {
+      res.send(503).send({ msg: 'Not authorized to access this content' });
+    }
+  },
 };

@@ -2,6 +2,7 @@ const { ObjectId } = require('mongodb');
 const { connectDb } = require('../db/index');
 
 let mealsCollection;
+let usersCollection;
 
 const getCollection = async () => {
   if (mealsCollection) {
@@ -9,6 +10,7 @@ const getCollection = async () => {
   }
   const db = await connectDb();
   mealsCollection = db.collection('meals');
+  usersCollection = db.collection('users');
 };
 
 getCollection();
@@ -61,8 +63,32 @@ module.exports = {
       } else {
         return { code: 409, data: { msg: 'Review for user already exists' } };
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      return { code: 500, data: { msg: 'An internal error occurred' } };
+    }
+  },
+
+  addUserRating: async (mealId, userId, rating) => {
+    const userQuery = new ObjectId(userId);
+    const mealQuery = new ObjectId(mealId);
+    try {
+      const { mealsRated } = await usersCollection.findOne({ _id: userQuery });
+
+      if (mealsRated.includes(mealId)) {
+        return { code: 409, data: { msg: 'User has already rated this meal' } };
+      }
+      await mealsCollection.findOneAndUpdate(
+        { _id: mealQuery },
+        { $inc: { [`ratings.${rating}`]: 1, numberOfRatings: 1 } }
+      );
+
+      await usersCollection.findOneAndUpdate(
+        { _id: userQuery },
+        { $push: { mealsRated: mealId } }
+      );
+      return { code: 201, data: { msg: 'User rating added' } };
+    } catch (err) {
       return { code: 500, data: { msg: 'An internal error occurred' } };
     }
   },

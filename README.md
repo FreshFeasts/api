@@ -163,3 +163,16 @@ Add user review to meal item
     "reviewText": String
 }
 ```
+
+**POST** `/meals/add-rating`
+
+Add user rating to meal item
+
+```
+// Request Body
+
+{  "mealId" : String,
+    "userId": String,
+    "rating": Number,
+}
+```
