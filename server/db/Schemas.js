@@ -46,4 +46,24 @@ module.exports = {
     orderDate: Joi.date().iso().required,
     deliveryDate: Joi.date().iso().required(),
   }),
+
+  updateUserSchema: Joi.object({
+    userId: Joi.string().required(),
+    user: Joi.object({
+      firstName: Joi.string().required(),
+      lastName: Joi.string().required(),
+      email: Joi.string().email().required(),
+      darkTheme: Joi.boolean().required(),
+    }).required(),
+    info: Joi.object({
+      deliveryAddress: Joi.object({
+        address1: Joi.string().required(),
+        address2: Joi.string().allow('').optional(),
+        city: Joi.string().required(),
+        state: Joi.string().length(2).required(),
+        zip: Joi.string().required(),
+      }).required(),
+      phone: Joi.string().required(),
+    }).required(),
+  }),
 };
