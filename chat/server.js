@@ -15,9 +15,24 @@ io.of('/').on('connect', (socket) => {
     socket.broadcast.emit('join', data);
   });
 
+  socket.on('list', (data) => {
+    console.log('\n%s', data);
+    var users = [];
+    for (const [key, value] of io.of('/').sockets) {
+      users.push(value.nickname);
+    }
+    socket.emit('list', { sender: data.sender, action: 'list', users: users });
+  });
+
   socket.on('broadcast', (data) => {
     console.log('\n%s', data);
     socket.broadcast.emit('broadcast', data);
+  });
+
+  socket.on('quit', (data) => {
+    console.log('\n%s', data);
+    socket.broadcast.emit('quit', data);
+    socket.disconnect(true);
   });
 
   socket.on('disconnect', (reason) => {
