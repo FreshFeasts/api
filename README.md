@@ -72,6 +72,7 @@ Updates the cart info
 
 ```
 // Request Body
+
 {
     "userId": String,
     "currentCart": {
@@ -86,6 +87,8 @@ Updates the cart info
 Submits a cart to be ordered
 
 ```
+// Request Body
+
 {
     "userId": String,
     "currentCart": {
@@ -100,10 +103,9 @@ Submits a cart to be ordered
 
 Update the user and user info
 
-<details>
-<summary>JSON Request body should follow</summary>
-
 ```
+// Request Body
+
 {
   "userId": "String",
   "user": {
@@ -124,8 +126,6 @@ Update the user and user info
   }
 }
 ```
-
-</details>
 
 ### User Contact Info
 
