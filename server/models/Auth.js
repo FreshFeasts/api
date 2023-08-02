@@ -39,6 +39,7 @@ module.exports = {
         deliverDate: null,
         orderedDate: null,
       },
+      mealsRated: [],
     });
 
     const userId = userResponse.insertedId;

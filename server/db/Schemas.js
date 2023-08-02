@@ -39,4 +39,11 @@ module.exports = {
       }).required(),
     }).required(),
   }),
+
+  updateDeliverySchema: Joi.object({
+    orderId: Joi.string().required(),
+    userId: Joi.string().required(),
+    orderDate: Joi.date().iso().required,
+    deliveryDate: Joi.date().iso().required(),
+  }),
 };

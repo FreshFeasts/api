@@ -148,3 +148,31 @@ Returns an array of meals.
 | :------------ | :-----: | :------------------------------------ |
 | Count         |    5    | The amount of orders returned         |
 | Page          |    1    | Selects the page of results to return |
+
+**POST** `/meals/add-review`
+
+Add user review to meal item
+
+```
+// Request Body
+
+{
+    "mealId" : String,
+    "userId": String,
+    "firstName": String,
+    "reviewText": String
+}
+```
+
+**POST** `/meals/add-rating`
+
+Add user rating to meal item
+
+```
+// Request Body
+
+{  "mealId" : String,
+    "userId": String,
+    "rating": Number,
+}
+```
