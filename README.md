@@ -96,6 +96,37 @@ Submits a cart to be ordered
 }
 ```
 
+**PUT** `users/update`
+
+Update the user and user info
+
+<details>
+<summary>JSON Request body should follow</summary>
+
+```
+{
+  "userId": "String",
+  "user": {
+    "firstName": "String",
+    "lastName": "String",
+    "email": "String",
+    "darkTheme": Boolean
+  },
+  "info": {
+    "deliveryAddress": {
+      "address1": "String",
+      "address2": "String",
+      "city": "String",
+      "state": "String",
+      "zip": "String"
+    },
+    "phone": "String"
+  }
+}
+```
+
+</details>
+
 ### User Contact Info
 
 **GET** `/info/:userId`
