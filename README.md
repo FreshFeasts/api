@@ -72,6 +72,7 @@ Updates the cart info
 
 ```
 // Request Body
+
 {
     "userId": String,
     "currentCart": {
@@ -86,6 +87,8 @@ Updates the cart info
 Submits a cart to be ordered
 
 ```
+// Request Body
+
 {
     "userId": String,
     "currentCart": {
@@ -93,6 +96,34 @@ Submits a cart to be ordered
         "deliveryDate" : Date,  "07/01/2023" new Date()
         "orderDate": Date
     }
+}
+```
+
+**PUT** `users/update`
+
+Update the user and user info
+
+```
+// Request Body
+
+{
+  "userId": "String",
+  "user": {
+    "firstName": "String",
+    "lastName": "String",
+    "email": "String",
+    "darkTheme": Boolean
+  },
+  "info": {
+    "deliveryAddress": {
+      "address1": "String",
+      "address2": "String",
+      "city": "String",
+      "state": "String",
+      "zip": "String"
+    },
+    "phone": "String"
+  }
 }
 ```
 
