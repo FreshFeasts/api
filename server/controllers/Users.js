@@ -1,5 +1,9 @@
 const { Users } = require('../models');
-const { updateUserSchema } = require('../db/Schemas');
+const {
+  updateUserSchema,
+  updateCartSchema,
+  addCartToOrdersSchema,
+} = require('../db/Schemas');
 const Joi = require('joi');
 
 module.exports = {
@@ -40,7 +44,13 @@ module.exports = {
     const authUserId = req.user.userId;
     const { userId, meals, currentCart } = req.body;
 
-    console.log(currentCart);
+    const { error } = updateCartSchema.validate(req.body);
+    if (error) {
+      res
+        .status(400)
+        .send({ msg: 'Invalid request data', error: error.details[0].message });
+      return;
+    }
 
     if (authUserId === userId) {
       try {
@@ -58,7 +68,13 @@ module.exports = {
     const authUserId = req.user.userId;
     const { userId, currentCart } = req.body;
 
-    console.log(authUserId, userId);
+    const { error } = addCartToOrdersSchema.validate(req.body);
+    if (error) {
+      res
+        .status(400)
+        .send({ msg: 'Invalid request data', error: error.details[0].message });
+      return;
+    }
 
     if (authUserId === userId) {
       console.log('authorized');
