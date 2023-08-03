@@ -1,13 +1,11 @@
 const Joi = require('joi');
-const jwt = require('jsonwebtoken');
+const { registerUserSchema } = require('../db/Schemas');
 
 const { Auth } = require('../models');
 
-const { registerSchema } = require('../db/Schemas');
-
 module.exports = {
   registerUser: async (req, res) => {
-    const { error } = registerSchema.validate(req.body);
+    const { error } = registerUserSchema.validate(req.body);
     if (error) {
       return res.status(400).send(error.details[0].message);
     }

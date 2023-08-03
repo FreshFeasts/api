@@ -1,4 +1,10 @@
 const { Users } = require('../models');
+const {
+  updateUserSchema,
+  updateCartSchema,
+  addCartToOrdersSchema,
+} = require('../db/Schemas');
+const Joi = require('joi');
 
 module.exports = {
   getUserByEmail: async (req, res) => {
@@ -38,7 +44,13 @@ module.exports = {
     const authUserId = req.user.userId;
     const { userId, meals, currentCart } = req.body;
 
-    console.log(currentCart);
+    const { error } = updateCartSchema.validate(req.body);
+    if (error) {
+      res
+        .status(400)
+        .send({ msg: 'Invalid request data', error: error.details[0].message });
+      return;
+    }
 
     if (authUserId === userId) {
       try {
@@ -56,12 +68,43 @@ module.exports = {
     const authUserId = req.user.userId;
     const { userId, currentCart } = req.body;
 
-    console.log(authUserId, userId);
+    const { error } = addCartToOrdersSchema.validate(req.body);
+    if (error) {
+      res
+        .status(400)
+        .send({ msg: 'Invalid request data', error: error.details[0].message });
+      return;
+    }
 
     if (authUserId === userId) {
       console.log('authorized');
       try {
         const result = await Users.addCartToOrders(userId, currentCart);
+        res.status(result.code).send(result.data);
+      } catch (err) {}
+    } else {
+      res.status(403).send({ msg: 'Not authorized to access this content' });
+    }
+  },
+
+  updateUser: async (req, res) => {
+    const authUserId = req.user.userId;
+    const { userId, user, info } = req.body;
+
+    console.log(authUserId, userId);
+
+    const { error } = updateUserSchema.validate(req.body);
+    if (error) {
+      res
+        .status(400)
+        .send({ msg: 'Invalid request data', error: error.details[0].message });
+      return;
+    }
+
+    if (authUserId === userId) {
+      console.log('authorized');
+      try {
+        const result = await Users.updateUser(userId, user, info);
         res.status(result.code).send(result.data);
       } catch (err) {}
     } else {

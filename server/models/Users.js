@@ -5,6 +5,7 @@ const Info = require('./Info');
 
 let usersCollection;
 let ordersCollection;
+let infoCollection;
 
 const getCollection = async () => {
   if (usersCollection) {
@@ -13,6 +14,7 @@ const getCollection = async () => {
   const db = await connectDb();
   usersCollection = db.collection('users');
   ordersCollection = db.collection('orders');
+  infoCollection = db.collection('info');
 };
 
 getCollection();
@@ -83,5 +85,28 @@ module.exports = {
       console.log(err);
       return { code: 400, data: err };
     }
+  },
+
+  updateUser: async (userId, user, info) => {
+    const query = new ObjectId(userId);
+    try {
+      const userData = await usersCollection.findOne({ _id: query });
+      const infoData = await infoCollection.findOne({ userId: query });
+
+      const updatedUserData = { ...userData, ...user };
+      const updatedInfoData = { ...infoData, ...info };
+
+      await usersCollection.findOneAndUpdate(
+        { _id: query },
+        { $set: updatedUserData }
+      );
+
+      await infoCollection.findOneAndUpdate(
+        { userId: query },
+        { $set: updatedInfoData }
+      );
+
+      return { code: 204 };
+    } catch (error) {}
   },
 };

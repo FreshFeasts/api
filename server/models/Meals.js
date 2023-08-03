@@ -38,7 +38,6 @@ module.exports = {
     ]);
 
     const data = await cursor.toArray();
-    console.log(data);
     return data;
   },
 
