@@ -36,8 +36,7 @@ module.exports = {
       password: hashedPass,
       currentCart: {
         meals: [],
-        deliverDate: null,
-        orderedDate: null,
+        deliveryDate: null,
       },
       mealsRated: [],
     });
