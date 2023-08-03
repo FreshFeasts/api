@@ -67,6 +67,12 @@ module.exports = {
 
   loginUser: async (email, password) => {
     const userData = await Users.getUserByEmail(email);
+    if (!userData) {
+      return {
+        status: 401,
+        json: { msg: 'A user does not exist with that email' },
+      };
+    }
     const match = await bcrypt.compare(password, userData.password);
     if (match) {
       const token = jwt.sign(
