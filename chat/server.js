@@ -20,6 +20,10 @@ io.on('connection', function (socket) {
     // across different events during this connection
   });
 
+  // Join
+  socket.on('join', (data) => {
+    console.log('[INFO]: %s has joined the chat', data.sender);
+  });
   // Chat Message
   socket.on('chat message', function (msg) {
     console.log('Sender', msg.sender);
@@ -29,10 +33,9 @@ io.on('connection', function (socket) {
   });
 
   // Quit
-  socket.on('quit', (data) => {
-    console.log('\n%s', data);
-    socket.broadcast.emit('quit', data);
-    socket.disconnect(true);
+  socket.on('quit', () => {
+    console.log('User quit the chat:', socket.id);
+    socket.disconnect();
   });
 });
 
