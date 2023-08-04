@@ -26,8 +26,6 @@ module.exports = {
     const authUserId = req.user.userId;
     const { userId } = req.params;
 
-    console.log(authUserId, userId);
-
     if (authUserId === userId) {
       try {
         const result = await Users.getInitData(userId);
@@ -77,7 +75,6 @@ module.exports = {
     }
 
     if (authUserId === userId) {
-      console.log('authorized');
       try {
         const result = await Users.addCartToOrders(userId, currentCart);
         res.status(result.code).send(result.data);
@@ -91,8 +88,6 @@ module.exports = {
     const authUserId = req.user.userId;
     const { userId, user, info } = req.body;
 
-    console.log(authUserId, userId);
-
     const { error } = updateUserSchema.validate(req.body);
     if (error) {
       res
@@ -102,7 +97,6 @@ module.exports = {
     }
 
     if (authUserId === userId) {
-      console.log('authorized');
       try {
         const result = await Users.updateUser(userId, user, info);
         res.status(result.code).send(result.data);

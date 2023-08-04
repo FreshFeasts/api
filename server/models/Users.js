@@ -27,7 +27,6 @@ module.exports = {
 
   getInitData: async (userId) => {
     const query = new ObjectId(userId);
-    console.log(query);
     try {
       const userData = await usersCollection.findOne({
         _id: query,
@@ -82,7 +81,7 @@ module.exports = {
       await ordersCollection.insertOne(completedOrder);
       return { code: 201, data: completedOrder };
     } catch (err) {
-      console.log(err);
+      console.error(err);
       return { code: 400, data: err };
     }
   },
