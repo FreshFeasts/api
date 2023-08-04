@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-server": "nodemon server/server.js"
+    "dev-server": "nodemon server/server.js",
+    "dev-chat": "nodemon chat/server/.js"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +18,8 @@
     "joi": "^17.9.2",
     "jsonwebtoken": "^9.0.1",
     "mongodb": "^5.7.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "socket.io": "^4.7.1"
   },
   "devDependencies": {
     "eslint": "^8.45.0",

@@ -19,7 +19,8 @@ module.exports = {
         });
       }
     } else {
-f    }
+      f;
+    }
   },
   getOrderById: async (req, res) => {
     const { orderId } = req.params;
@@ -35,7 +36,6 @@ f    }
   updateDeliveryDate: async (req, res) => {
     const { orderId, userId, orderDate, deliveryDate } = req.body;
     const authUserId = req.user.userId;
-    console.log(orderId, userId, authUserId, orderDate, deliveryDate);
     if (authUserId === userId) {
       try {
         const status = await Orders.updateDeliveryDate(
